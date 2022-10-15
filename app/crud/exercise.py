@@ -1,3 +1,4 @@
+from app.crud.exercise_muscle import ExerciseMuscleCRUD
 from app.utils.base import Singleton
 
 
@@ -19,7 +20,7 @@ class ExerciseCRUD(metaclass=Singleton):
             },
         ]
         for exercise in self.exercises:
-            exercise["id"] = self.exercises.index(exercise)
+            exercise["exercise_id"] = self.exercises.index(exercise)
             exercise["can_delete"] = 0
 
     def get_all(self):
@@ -32,13 +33,13 @@ class ExerciseCRUD(metaclass=Singleton):
 
     def create(self, exercise_dto):
         self.exercises.append(exercise_dto)
-        self.exercises[-1]["id"] = len(self.exercises) - 1
+        self.exercises[-1]["exercise_id"] = len(self.exercises) - 1
         self.exercises[-1]["can_delete"] = 1
         return self.exercises[-1]
 
     def update(self, exercise):
-        self.exercises[exercise["id"]] = exercise
-        return self.exercises[exercise["id"]]
+        self.exercises[exercise["exercise_id"]] = exercise
+        return self.exercises[exercise["exercise_id"]]
 
     def delete(self, exercise_id):
         exercise = self.exercises.pop(exercise_id)
@@ -52,5 +53,5 @@ if __name__ == "__main__":
     print(ecrud.get_by_id(10))
     print(ecrud.delete(2))
     print(ecrud.create({"name": "plansh", "description": None}))
-    print(ecrud.update({"id": 2, "name": "plansh", "description": "eee"}))
+    print(ecrud.update({"exercise_id": 2, "name": "plansh", "description": "eee"}))
     print(ecrud.get_all())

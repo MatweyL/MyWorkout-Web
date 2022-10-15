@@ -8,7 +8,13 @@
     {% if exercises %}
         {% for exercise in exercises %}
             <div>
-              <em>{{ exercise.id }}:</em> {{ exercise.name }} : {{ exercise.description }}
+                {{ exercise.name }} : {{ exercise.description }}
+                <form action="{{ url_for('exercise.update_exercise', exercise_id=exercise.exercise_id) }}" method="GET">
+                    <button type="submit">Редактировать</button>
+                </form>
+                <form action="{{ url_for('exercise.delete_exercise', exercise_id=exercise.exercise_id) }}" method="DELETE">
+                    <button type="submit">Удалить</button>
+                </form>
             </div>
           {% endfor %}
     {% endif %}

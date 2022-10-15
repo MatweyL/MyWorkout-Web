@@ -3,6 +3,7 @@ from flask import Flask
 
 def create_app():
     app = Flask(__name__)
+    app.config['SECRET_KEY'] = 'sTTyyVBBBH23837788SafvSF(*hfwh'
     # app.config.from_object(os.environ['APP_SETTINGS'])
     # app.config.from_object('config')
     # db.init_app(app)
