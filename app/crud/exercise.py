@@ -1,6 +1,7 @@
+from app.utils.base import Singleton
 
 
-class ExerciseCRUD:
+class ExerciseCRUD(metaclass=Singleton):
 
     def __init__(self):
         self.exercises = [
@@ -19,6 +20,7 @@ class ExerciseCRUD:
         ]
         for exercise in self.exercises:
             exercise["id"] = self.exercises.index(exercise)
+            exercise["can_delete"] = 0
 
     def get_all(self):
         return self.exercises
@@ -31,6 +33,7 @@ class ExerciseCRUD:
     def create(self, exercise_dto):
         self.exercises.append(exercise_dto)
         self.exercises[-1]["id"] = len(self.exercises) - 1
+        self.exercises[-1]["can_delete"] = 1
         return self.exercises[-1]
 
     def update(self, exercise):

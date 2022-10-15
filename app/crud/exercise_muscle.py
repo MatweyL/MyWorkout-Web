@@ -1,4 +1,7 @@
-class ExerciseMuscleCRUD:
+from app.utils.base import Singleton
+
+
+class ExerciseMuscleCRUD(metaclass=Singleton):
 
     def __init__(self):
         self.exercise_muscle = [

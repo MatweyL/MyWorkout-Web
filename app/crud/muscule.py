@@ -1,6 +1,7 @@
+from app.utils.base import Singleton
 
 
-class MuscleCRUD:
+class MuscleCRUD(metaclass=Singleton):
 
     def __init__(self):
         self.muscles = [

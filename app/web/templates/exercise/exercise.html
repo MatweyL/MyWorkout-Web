@@ -5,6 +5,10 @@
     <title>Title</title>
 </head>
 <body>
-
+    {% if exercise %}
+            <div>
+              <em>{{ exercise.id }}:</em> {{ exercise.name }} : {{ exercise.description }}
+            </div>
+    {% endif %}
 </body>
 </html>
