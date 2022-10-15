@@ -31,7 +31,7 @@ class ExerciseCRUD:
     def create(self, exercise_dto):
         self.exercises.append(exercise_dto)
         self.exercises[-1]["id"] = len(self.exercises) - 1
-        return  self.exercises[-1]
+        return self.exercises[-1]
 
     def update(self, exercise):
         self.exercises[exercise["id"]] = exercise
