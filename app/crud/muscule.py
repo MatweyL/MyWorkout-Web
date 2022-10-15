@@ -24,6 +24,11 @@ class MuscleCRUD(metaclass=Singleton):
     def get_all(self):
         return self.muscles
 
+    def get_by_name(self, name):
+        for muscle in self.muscles:
+            if muscle["name"] == name:
+                return muscle
+
     def get_by_id(self, muscle_id):
         if 0 <= muscle_id < len(self.muscles):
             return self.muscles[muscle_id]

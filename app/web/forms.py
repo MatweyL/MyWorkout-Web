@@ -3,15 +3,16 @@ from wtforms import StringField, PasswordField, BooleanField, SubmitField, Integ
     SelectField
 from wtforms.validators import DataRequired
 
+from app.crud.muscule import MuscleCRUD
+
 
 class MuscleForm(FlaskForm):
-    muscle_id = IntegerField('id')
-    name = SelectField(choices=["e", "2", "d"])
+    name = SelectField('Задействованные мышцы', choices=[muscle["name"] for muscle in MuscleCRUD().get_all()])
+    submit = SubmitField('Добавить')
 
 
 class ExerciseForm(FlaskForm):
     exercise_id = IntegerField('id')
     name = StringField('Название', validators=[DataRequired()])
     description = StringField('Описание', validators=[DataRequired()])
-    muscles = FieldList(FormField(MuscleForm), min_entries=1, max_entries=2)
     submit = SubmitField('Сохранить')
