@@ -1,5 +1,7 @@
 import re
 
+
+from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import MetaData, Column, Integer
 from sqlalchemy.ext.declarative import as_declarative, declared_attr
 
@@ -30,3 +32,5 @@ class Base:
     def __tablename__(cls) -> str:
         return camel_to_snake(cls.__name__)
 
+
+db = SQLAlchemy()

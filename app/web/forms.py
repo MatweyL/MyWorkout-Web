@@ -42,3 +42,16 @@ class TrainForm(FlaskForm):
     name = StringField('Название', validators=[DataRequired()])
     description = StringField('Описание', validators=[DataRequired()])
     submit = SubmitField('Сохранить')
+
+
+class LoginForm(FlaskForm):
+    email = StringField("Почта", validators=[DataRequired()])
+    password = PasswordField("Пароль", validators=[DataRequired()])
+    submit = SubmitField('Войти')
+
+
+class RegisterForm(FlaskForm):
+    nickname = StringField("Имя", validators=[DataRequired()])
+    email = StringField("Почта", validators=[DataRequired()])
+    password = PasswordField("Пароль", validators=[DataRequired()])
+    submit = SubmitField('Войти')
