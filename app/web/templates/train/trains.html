@@ -5,12 +5,18 @@
     <title>Title</title>
 </head>
 <body>
+    <a href="{{ url_for('train.create_train') }}">Добавить тренировку</a>
     {% if trains %}
         {% for train in trains %}
             <div>
                 <div>{{ train.name }}</div>
                 <div>{{ train.description }}</div>
                 <div><a href="{{ url_for('train.get_train', train_id=train.train_id) }}">Подробнее</a></div>
+                <div><a href="{{ url_for('train.update_train', train_id=train.train_id) }}">Редактировать</a></div>
+                <div><a href="{{ url_for('train.add_train_exercise', train_id=train.train_id) }}">Редактировать упражнения</a></div>
+                <form action="{{ url_for('train.delete_train', train_id=train.train_id) }}" method="DELETE">
+                    <button type="submit">Удалить</button>
+                </form>
             </div>
         {% endfor %}
     {% endif %}

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <form action="" method="post">
+                    {{ form.hidden_tag() }}
+
+                    <p>
+                        {{ form.name }}
+                    </p>
+                    <p>
+                        {{ form.sequence_number }}
+                    </p>
+                    <p>
+                        {{ form.sets }}
+                    </p>
+                    <p>
+                        {{ form.reps }}
+                    </p>
+                    <p>
+                        {{ form.timeout }}
+                    </p>
+                    <p>{{ form.submit() }}</p>
+                </form>
+</body>
+</html>

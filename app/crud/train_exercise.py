@@ -1,4 +1,7 @@
-class TrainExerciseCRUD:
+from app.utils.base import Singleton
+
+
+class TrainExerciseCRUD(metaclass=Singleton):
 
     def __init__(self):
         self.trains_exercises = [
@@ -49,6 +52,14 @@ class TrainExerciseCRUD:
             },
         ]
 
+    def get_max_sequence_number(self, user_id, train_id):
+        sequence_number = 0
+        for train_exercise in self.get_all(user_id, train_id):
+            if train_exercise["sequence_number"] > sequence_number:
+                sequence_number = train_exercise["sequence_number"]
+        return sequence_number
+
+
     def get_all(self, user_id, train_id):
         train_exercises = []
         for train_exercise in self.trains_exercises:
@@ -72,10 +83,11 @@ class TrainExerciseCRUD:
         train_exercise_to_update = self.get_by_id(train_exercise["sequence_number"],
                                                   train_exercise["user_id"],
                                                   train_exercise["train_id"])
-        train_exercise_to_update = train_exercise
+        train_exercise_to_update.update(train_exercise)
         return train_exercise_to_update
 
     def delete(self, user_id, train_id, sequence_number):
-        train_exercise_to_delete = self.get_by_id(user_id, train_id, sequence_number)
+        train_exercise_to_delete = self.get_by_id(sequence_number, user_id, train_id)
+        print(user_id, train_id, sequence_number, train_exercise_to_delete)
         self.trains_exercises.remove(train_exercise_to_delete)
         return train_exercise_to_delete

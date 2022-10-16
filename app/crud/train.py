@@ -1,7 +1,7 @@
+from app.utils.base import Singleton
 
 
-
-class TrainCRUD:
+class TrainCRUD(metaclass=Singleton):
 
     def __init__(self):
         self.trains = [
@@ -31,8 +31,9 @@ class TrainCRUD:
         return self.trains[-1]
 
     def update(self, train):
-        self.trains[train["train_id"]] = train
-        return self.trains[train["train_id"]]
+        train_to_update = self.get_by_id(train["user_id"], train["train_id"])
+        train_to_update.update(train)
+        return train_to_update
 
     def delete(self, user_id, train_id):
         train_to_delete = self.get_by_id(user_id, train_id)

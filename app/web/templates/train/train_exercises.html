@@ -5,6 +5,38 @@
     <title>Title</title>
 </head>
 <body>
+    {% if train %}
+        <div>{{train.name}}</div>
+        <div>{{train.description}}</div>
+        <div>Упражнения</div>
+        {% for train_exercise in train.train_exercises %}
+            <div>{{train_exercise.name}}</div>
+            <div>{{train_exercise.sets}}</div>
+            <div>{{train_exercise.reps}}</div>
+            <div>{{train_exercise.timeout}}</div>
+            <div><a href="{{ url_for('train.update_train_exercise', train_id=train.train_id, sequence_number=train_exercise.sequence_number) }}">Редактировать</a></div>
+            <form method="GET" action="{{ url_for('train.remove_train_exercise', train_id=train.train_id, sequence_number=train_exercise.sequence_number) }}">
+                <button type="submit">Удалить</button>
+            </form>
+            <div><a href="{{ url_for('exercise.get_exercise', exercise_id=train_exercise.exercise_id) }}">Подробнее</a></div>
+        {% endfor %}
+                <form action="" method="post">
+                    {{ form.hidden_tag() }}
+                    <p>
+                        {{ form.name }}
+                    </p>
+                    <p>
+                        {{ form.sets }}
+                    </p>
+                    <p>
+                        {{ form.reps }}
+                    </p>
+                    <p>
+                        {{ form.timeout }}
+                    </p>
+                    <p>{{ form.submit() }}</p>
+                </form>
+    {% endif %}
 
 </body>
 </html>

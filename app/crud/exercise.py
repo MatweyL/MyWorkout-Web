@@ -31,6 +31,11 @@ class ExerciseCRUD(metaclass=Singleton):
             return self.exercises[exercise_id]
         return None
 
+    def get_by_name(self, name):
+        for exercise in self.exercises:
+            if exercise["name"] == name:
+                return exercise
+
     def create(self, exercise_dto):
         self.exercises.append(exercise_dto)
         self.exercises[-1]["exercise_id"] = len(self.exercises) - 1

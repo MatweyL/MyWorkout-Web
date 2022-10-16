@@ -31,7 +31,7 @@ def create_exercise():
     if request.method == "POST" and form.validate_on_submit():
         e_crud = ExerciseCRUD()
         e_crud.create({"name": form.name.data, "description": form.description.data})
-        return redirect("/exercises")
+        return redirect(url_for(".get_exercises"))
 
     return render_template("exercise/new.html", form=form)
 
@@ -43,7 +43,7 @@ def update_exercise(exercise_id):
     if request.method == "POST" and form.validate_on_submit():
         e = {"exercise_id": form.exercise_id.data, "name": form.name.data, "description": form.description.data}
         e_crud.update(e)
-        return redirect("/exercises")
+        return redirect(url_for(".get_exercises"))
     e = e_crud.get_by_id(exercise_id)
     form.exercise_id.data = e["exercise_id"]
     form.name.data = e["name"]
