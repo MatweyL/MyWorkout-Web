@@ -4,15 +4,27 @@
 {% endblock %}
 {% block content %}
     {% if train %}
-        <div>{{train.name}}</div>
-        <div>{{train.description}}</div>
-        <div>Упражнения</div>
-        {% for train_exercise in train.train_exercises %}
-            <div>{{train_exercise.name}}</div>
-            <div>{{train_exercise.sets}}</div>
-            <div>{{train_exercise.reps}}</div>
-            <div>{{train_exercise.timeout}}</div>
-            <div><a href="{{ url_for('exercise.get_exercise', exercise_id=train_exercise.exercise_id) }}">Подробнее</a></div>
-        {% endfor %}
+        <div class="card">
+                <div class="card-header"> <strong class="card-title">{{ train.name }} </strong></div>
+
+                <div class="card-body">
+                    <div class="card-text">
+                         {{ train.description }}
+                    </div>
+                </div>
+                <div class="card-header"><strong>Упражнения</strong></div>
+                    <ul class="list-group list-group-flush">
+                        {% if train.train_exercises %}
+                            {% for train_exercise in train.train_exercises %}
+                                <li class="list-group-item">
+                                    <strong><a href="{{ url_for('exercise.get_exercise', exercise_id=train_exercise.exercise_id) }}">{{ train_exercise.name }}</a></strong>
+                                    <div class="mt-2">Повторений: {{train_exercise.reps}}</div>
+                                    <div>Подходов:   {{train_exercise.sets}}</div>
+                                    <div>Отдых, с:      {{train_exercise.timeout}}</div>
+                                </li>
+                            {% endfor %}
+                        {% endif %}
+                    </ul>
+            </div>
     {% endif %}
 {% endblock %}

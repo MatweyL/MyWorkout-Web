@@ -1,14 +1,25 @@
 {% extends "layouts/base.html" %}
+{% block heading %}
+Упражнение
+{% endblock %}
 {% block content %}
     {% if exercise %}
-            <div>
-              <em>{{ exercise.id }}:</em> {{ exercise.name }} : {{ exercise.description }}
-                {% if exercise.muscles %}
-                    {% for muscle in exercise.muscles %}
-                        <div>{{ muscle.name }}</div>
-                    {% endfor %}
-                {% endif %}
+            <div class="card">
+                <div class="card-header"> <strong class="card-title">{{ exercise.name }} </strong></div>
 
+                <div class="card-body">
+                    <div class="card-text">
+                         {{ exercise.description }}
+                    </div>
+                </div>
+                <div class="card-header"><strong>Задействованные мышцы</strong></div>
+                    <ul class="list-group list-group-flush">
+                        {% if exercise.muscles %}
+                            {% for muscle in exercise.muscles %}
+                                <li class="list-group-item">{{ muscle.name }}</li>
+                            {% endfor %}
+                        {% endif %}
+                    </ul>
             </div>
     {% endif %}
 {% endblock %}

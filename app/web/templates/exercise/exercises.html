@@ -4,20 +4,19 @@
 {% endblock %}
 {% block content %}
     <a class="btn btn-outline-primary mt-3" href="{{ url_for('exercise.create_exercise') }}">Добавить упражнение</a>
-    <div class="mt-3">
+    <div class="mt-3 d-flex flex-wrap">
         {% if exercises %}
             {% for exercise in exercises %}
-                <div>
-                    <div>{{ exercise.name }}</div>
-                    <div><a href="{{ url_for('exercise.get_exercise', exercise_id=exercise.id) }}">Подробнее</a></div>
-                    <div><a href="{{ url_for('exercise.add_muscle', exercise_id=exercise.id) }}">Редактировать мышцы</a></div>
-                    <form action="{{ url_for('exercise.update_exercise', exercise_id=exercise.id) }}" method="GET">
-                        <button type="submit">Редактировать</button>
-                    </form>
-                    <form action="{{ url_for('exercise.delete_exercise', exercise_id=exercise.id) }}" method="DELETE">
-                        <button type="submit">Удалить</button>
-                    </form>
+                <div class="card mb-3 col-3">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ exercise.name }}</h5>
+                        <div><a href="{{ url_for('exercise.get_exercise', exercise_id=exercise.id) }}">Подробнее</a></div>
+                        <div><a class="text-info" href="{{ url_for('exercise.add_muscle', exercise_id=exercise.id) }}">Редактировать мышцы</a></div>
+                        <div><a class="text-info" href="{{ url_for('exercise.update_exercise', exercise_id=exercise.id) }}">Редактировать</a></div>
+                        <div><a class="text-danger" href="{{ url_for('exercise.delete_exercise', exercise_id=exercise.id) }}">Удалить</a></div>
+                    </div>
                 </div>
+                <div style="width: 30px"></div>
               {% endfor %}
         {% endif %}
     </div>

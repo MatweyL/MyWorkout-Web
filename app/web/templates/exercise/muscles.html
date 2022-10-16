@@ -4,17 +4,22 @@
 {% endblock %}
 {% block content %}
     {% if exercise %}
-            <div>
-              <em>{{ exercise.id }}:</em> {{ exercise.name }} : {{ exercise.description }}
-                {% if exercise.muscles %}
-                    {% for muscle in exercise.muscles %}
-                        <div>{{ muscle.name }}
-                            <form method="GET" action="{{ url_for('exercise.remove_muscle', exercise_id=exercise.id, muscle_id=muscle.id) }}">
-                                <button type="submit">Удалить</button>
-                            </form>
-                        </div>
-                    {% endfor %}
-                {% endif %}
+            <div class="card">
+                <div class="card-header"> <strong class="card-title">{{ exercise.name }} </strong></div>
+
+                <div class="card-body">
+                    <div class="card-text">
+                         {{ exercise.description }}
+                    </div>
+                </div>
+                <div class="card-header"><strong>Задействованные мышцы</strong></div>
+                    <ul class="list-group list-group-flush">
+                        {% if exercise.muscles %}
+                            {% for muscle in exercise.muscles %}
+                                <li class="list-group-item"><a class="text-danger" href="{{ url_for('exercise.remove_muscle', exercise_id=exercise.id, muscle_id=muscle.id) }}">Удалить</a> {{ muscle.name }}</li>
+                            {% endfor %}
+                        {% endif %}
+                    </ul>
             </div>
             <div>
                 <form action="" method="post">

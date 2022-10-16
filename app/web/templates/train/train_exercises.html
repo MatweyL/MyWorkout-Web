@@ -4,32 +4,50 @@
 {% endblock %}
 {% block content %}
     {% if train %}
-        <div>{{train.name}}</div>
-        <div>{{train.description}}</div>
-        <div>Упражнения</div>
-        {% for train_exercise in train.train_exercises %}
-            <div>{{train_exercise.name}}</div>
-            <div>{{train_exercise.sets}}</div>
-            <div>{{train_exercise.reps}}</div>
-            <div>{{train_exercise.timeout}}</div>
-            <div><a href="{{ url_for('train.update_train_exercise', train_id=train.id, sequence_number=train_exercise.sequence_number) }}">Редактировать</a></div>
-            <form method="GET" action="{{ url_for('train.remove_train_exercise', train_id=train.id, sequence_number=train_exercise.sequence_number) }}">
-                <button type="submit">Удалить</button>
-            </form>
-            <div><a href="{{ url_for('exercise.get_exercise', exercise_id=train_exercise.exercise_id) }}">Подробнее</a></div>
-        {% endfor %}
-                <form action="" method="post">
+        <div class="card">
+                <div class="card-header"> <strong class="card-title">{{ train.name }} </strong></div>
+
+                <div class="card-body">
+                    <div class="card-text">
+                         {{ train.description }}
+                    </div>
+                </div>
+                <div class="card-header"><strong>Упражнения</strong></div>
+                    <ul class="list-group list-group-flush">
+                        {% if train.train_exercises %}
+                            {% for train_exercise in train.train_exercises %}
+                                <li class="list-group-item">
+                                    <div>
+                                        <a href="{{ url_for('exercise.get_exercise', exercise_id=train_exercise.exercise_id) }}"><strong>{{ train_exercise.name }}</strong></a>
+<!--                                        <a class="text-info" href="{{ url_for('train.update_train_exercise', train_id=train.id, sequence_number=train_exercise.sequence_number) }}">Редактировать</a>-->
+<!--                                        <a class="text-danger" href="{{ url_for('train.remove_train_exercise', train_id=train.id, sequence_number=train_exercise.sequence_number) }}">Удалить</a>-->
+                                    </div>
+                                    <div class="mt-2">Повторений: {{train_exercise.reps}}</div>
+                                    <div>Подходов:   {{train_exercise.sets}}</div>
+                                    <div>Отдых, с:      {{train_exercise.timeout}}</div>
+                                    <div><a class="text-info" href="{{ url_for('train.update_train_exercise', train_id=train.id, sequence_number=train_exercise.sequence_number) }}">Редактировать</a></div>
+                                    <div><a class="text-danger" href="{{ url_for('train.remove_train_exercise', train_id=train.id, sequence_number=train_exercise.sequence_number) }}">Удалить</a></div>
+                                </li>
+                            {% endfor %}
+                        {% endif %}
+                    </ul>
+            </div>
+                <form class="mt-3" action="" method="post">
                     {{ form.hidden_tag() }}
                     <p class="form-outline mb-4">
+                        {{ form.name.label(class_="form-label") }}<br>
                         {{ form.name }}
                     </p>
                     <p class="form-outline mb-4">
-                        {{ form.sets }}
-                    </p>
-                    <p class="form-outline mb-4">
+                        {{ form.reps.label(class_="form-label") }}<br>
                         {{ form.reps }}
                     </p>
                     <p class="form-outline mb-4">
+                        {{ form.sets.label(class_="form-label") }}<br>
+                        {{ form.sets }}
+                    </p>
+                    <p class="form-outline mb-4">
+                        {{ form.timeout.label(class_="form-label") }}<br>
                         {{ form.timeout }}
                     </p>
                     <p class="d-flex justify-content-center">{{ form.submit() }}</p>

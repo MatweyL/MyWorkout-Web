@@ -8,7 +8,7 @@ from app.crud.muscule import MuscleCRUD
 
 
 class MuscleForm(FlaskForm):
-    name = SelectField('Задействованные мышцы')
+    name = SelectField('Задействованные мышцы', render_kw={"class": "form-control"})
     submit = SubmitField('Добавить', render_kw={"class": "btn btn-primary"})
 
 
@@ -20,7 +20,7 @@ class ExerciseForm(FlaskForm):
 
 
 class TrainExerciseForm(FlaskForm):
-    name = SelectField('Упражнение')
+    name = SelectField('Упражнение', render_kw={"class": "form-control"})
     sequence_number = IntegerField('Номер упражнения', render_kw={"class": "d-none"})
     reps = IntegerField('Повторения', validators=[DataRequired()], render_kw={"class": "form-control"})
     sets = IntegerField('Подходы', validators=[DataRequired()], render_kw={"class": "form-control"})
@@ -29,12 +29,12 @@ class TrainExerciseForm(FlaskForm):
 
 
 class TrainExerciseUpdateForm(FlaskForm):
-    name = SelectField('Упражнение')
+    name = SelectField('Упражнение', render_kw={"class": "form-control"})
     sequence_number = IntegerField('Номер упражнения', validators=[DataRequired()], render_kw={"class": "d-none"})
     reps = IntegerField('Повторения', validators=[DataRequired()], render_kw={"class": "form-control"})
     sets = IntegerField('Подходы', validators=[DataRequired()], render_kw={"class": "form-control"})
     timeout = IntegerField('Отдых', validators=[DataRequired()], render_kw={"class": "form-control"})
-    submit = SubmitField('Добавить', render_kw={"class": "btn btn-primary"})
+    submit = SubmitField('Сохранить', render_kw={"class": "btn btn-primary"})
 
 
 class TrainForm(FlaskForm):

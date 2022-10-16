@@ -3,19 +3,22 @@
 Тренировки
 {% endblock %}
 {% block content %}
-    <a href="{{ url_for('train.create_train') }}">Добавить тренировку</a>
-    {% if trains %}
-        {% for train in trains %}
-            <div>
-                <div>{{ train.name }}</div>
-                <div>{{ train.description }}</div>
-                <div><a href="{{ url_for('train.get_train', train_id=train.id) }}">Подробнее</a></div>
-                <div><a href="{{ url_for('train.update_train', train_id=train.id) }}">Редактировать</a></div>
-                <div><a href="{{ url_for('train.add_train_exercise', train_id=train.id) }}">Редактировать упражнения</a></div>
-                <form action="{{ url_for('train.delete_train', train_id=train.id) }}" method="DELETE">
-                    <button type="submit">Удалить</button>
-                </form>
-            </div>
-        {% endfor %}
-    {% endif %}
+    <a class="btn btn-outline-primary mt-3" href="{{ url_for('train.create_train') }}">Добавить тренировку</a>
+    <div class="mt-3 d-flex flex-wrap">
+        {% if trains %}
+            {% for train in trains %}
+                <div class="card mb-3 col-3">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ train.name }}</h5>
+                        <div><a href="{{ url_for('train.get_train', train_id=train.id) }}">Подробнее</a></div>
+                        <div><a class="text-info" href="{{ url_for('train.update_train', train_id=train.id) }}">Редактировать</a></div>
+                        <div><a class="text-info" href="{{ url_for('train.add_train_exercise', train_id=train.id) }}">Редактировать упражнения</a></div>
+                        <div><a class="text-danger" href="{{ url_for('train.delete_train', train_id=train.id) }}">Удалить</a></div>
+                    </div>
+                </div>
+                <div style="width: 30px"></div>
+              {% endfor %}
+        {% endif %}
+    </div>
+
 {% endblock %}
