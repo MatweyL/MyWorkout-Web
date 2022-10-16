@@ -1,10 +1,8 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends "layouts/base.html" %}
+{% block heading %}
+Тренировки
+{% endblock %}
+{% block content %}
     <a href="{{ url_for('train.create_train') }}">Добавить тренировку</a>
     {% if trains %}
         {% for train in trains %}
@@ -20,6 +18,4 @@
             </div>
         {% endfor %}
     {% endif %}
-
-</body>
-</html>
+{% endblock %}

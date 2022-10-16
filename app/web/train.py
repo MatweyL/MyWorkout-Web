@@ -12,6 +12,12 @@ from app.web.forms import ExerciseForm, MuscleForm, TrainForm, TrainExerciseForm
 train = Blueprint('train', __name__, template_folder="templates", static_folder="static")
 
 
+@train.before_request
+def check_authorization():
+    if current_user.is_anonymous:
+        return redirect(url_for("auth.login"))
+
+
 def get_train_verbose(user_id, train_id):
     t_crud = TrainCRUD()
     train_ = t_crud.get_by_id(user_id, train_id)

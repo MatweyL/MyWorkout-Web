@@ -1,0 +1,25 @@
+
+<header>
+    <h1 class="mt-3">MyWorkout - сервис создания тренировок</h1>
+    <hr>
+    <nav class="navbar navbar-light justify-content-between mt-3">
+        <a class="navbar-brand" href="/">MyWorkout</a>
+            {% if current_user.is_authenticated %}
+                <span class="nav-item">
+                  <a class="nav-link" href="{{ url_for('train.get_trains') }}">Тренировки</a>
+                </span>
+                <span class="nav-item">
+                  <a class="nav-link" href="{{ url_for('exercise.get_exercises') }}">Упражнения</a>
+                </span>
+            {% endif %}
+            <span class="nav-item">
+                <a class="btn btn-outline-secondary" href="{{ url_for('auth.register') }}">Зарегистироваться</a>
+                {% if current_user.is_authenticated %}
+                    <a class="btn btn-primary" href="{{ url_for('auth.logout') }}">Выйти</a>
+                {% else %}
+                    <a class="btn btn-primary" href="{{ url_for('auth.login') }}">Войти</a>
+                {% endif %}
+            </span>
+    </nav>
+    <hr>
+</header>

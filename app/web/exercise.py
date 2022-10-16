@@ -10,6 +10,12 @@ from app.web.forms import ExerciseForm, MuscleForm
 exercise = Blueprint('exercise', __name__, template_folder="templates", static_folder="static")
 
 
+@exercise.before_request
+def check_authorization():
+    if current_user.is_anonymous:
+        return redirect(url_for("auth.login"))
+
+
 @exercise.route('/',  methods=["GET"])
 def get_exercises():
     e_crud = ExerciseCRUD()

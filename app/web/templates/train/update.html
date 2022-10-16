@@ -1,23 +1,19 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends "layouts/base.html" %}
+{% block heading %}
+Редактировать тренировку
+{% endblock %}
+{% block content %}
     <form action="" method="post">
         {{ form.hidden_tag() }}
-        <p>
-            {{ form.id(size=32) }}<br>
+        <p class="form-outline mb-4">
+            {{ form.id() }}<br>
             {{ form.name.label }}<br>
             {{ form.name(size=32) }}
         </p>
-        <p>
+        <p class="form-outline mb-4">
             {{ form.description.label }}<br>
             {{ form.description(size=32) }}
         </p>
         <p>{{ form.submit() }}</p>
     </form>
-
-</body>
-</html>
+{% endblock %}

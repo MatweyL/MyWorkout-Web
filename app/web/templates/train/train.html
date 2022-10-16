@@ -1,11 +1,8 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-
+{% extends "layouts/base.html" %}
+{% block heading %}
+Тренировка
+{% endblock %}
+{% block content %}
     {% if train %}
         <div>{{train.name}}</div>
         <div>{{train.description}}</div>
@@ -18,5 +15,4 @@
             <div><a href="{{ url_for('exercise.get_exercise', exercise_id=train_exercise.exercise_id) }}">Подробнее</a></div>
         {% endfor %}
     {% endif %}
-</body>
-</html>
+{% endblock %}
