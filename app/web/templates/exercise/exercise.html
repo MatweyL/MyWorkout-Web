@@ -7,10 +7,13 @@
 <body>
     {% if exercise %}
             <div>
-              <em>{{ exercise.exercise_id }}:</em> {{ exercise.name }} : {{ exercise.description }}
-                {% for muscle in exercise.muscles %}
-                    <div>{{ muscle.name }}</div>
-                {% endfor %}
+              <em>{{ exercise.id }}:</em> {{ exercise.name }} : {{ exercise.description }}
+                {% if exercise.muscles %}
+                    {% for muscle in exercise.muscles %}
+                        <div>{{ muscle.name }}</div>
+                    {% endfor %}
+                {% endif %}
+
             </div>
     {% endif %}
 </body>

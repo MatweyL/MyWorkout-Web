@@ -10,12 +10,12 @@
         {% for exercise in exercises %}
             <div>
                 <div>{{ exercise.name }}</div>
-                <div><a href="{{ url_for('exercise.get_exercise', exercise_id=exercise.exercise_id) }}">Подробнее</a></div>
-                <div><a href="{{ url_for('exercise.add_muscle', exercise_id=exercise.exercise_id) }}">Редактировать мышцы</a></div>
-                <form action="{{ url_for('exercise.update_exercise', exercise_id=exercise.exercise_id) }}" method="GET">
+                <div><a href="{{ url_for('exercise.get_exercise', exercise_id=exercise.id) }}">Подробнее</a></div>
+                <div><a href="{{ url_for('exercise.add_muscle', exercise_id=exercise.id) }}">Редактировать мышцы</a></div>
+                <form action="{{ url_for('exercise.update_exercise', exercise_id=exercise.id) }}" method="GET">
                     <button type="submit">Редактировать</button>
                 </form>
-                <form action="{{ url_for('exercise.delete_exercise', exercise_id=exercise.exercise_id) }}" method="DELETE">
+                <form action="{{ url_for('exercise.delete_exercise', exercise_id=exercise.id) }}" method="DELETE">
                     <button type="submit">Удалить</button>
                 </form>
             </div>

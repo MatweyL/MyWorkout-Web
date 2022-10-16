@@ -7,14 +7,16 @@
 <body>
     {% if exercise %}
             <div>
-              <em>{{ exercise.exercise_id }}:</em> {{ exercise.name }} : {{ exercise.description }}
-                {% for muscle in exercise.muscles %}
-                    <div>{{ muscle.name }}
-                        <form method="GET" action="{{ url_for('exercise.remove_muscle', exercise_id=exercise.exercise_id, muscle_id=muscle.muscle_id) }}">
-                            <button type="submit">Удалить</button>
-                        </form>
-                    </div>
-                {% endfor %}
+              <em>{{ exercise.id }}:</em> {{ exercise.name }} : {{ exercise.description }}
+                {% if exercise.muscles %}
+                    {% for muscle in exercise.muscles %}
+                        <div>{{ muscle.name }}
+                            <form method="GET" action="{{ url_for('exercise.remove_muscle', exercise_id=exercise.id, muscle_id=muscle.id) }}">
+                                <button type="submit">Удалить</button>
+                            </form>
+                        </div>
+                    {% endfor %}
+                {% endif %}
             </div>
             <div>
                 <form action="" method="post">

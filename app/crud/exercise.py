@@ -1,62 +1,41 @@
+from app import db
 from app.crud.exercise_muscle import ExerciseMuscleCRUD
+from app.models.base import Exercise
 from app.utils.base import Singleton
 
 
 class ExerciseCRUD(metaclass=Singleton):
 
-    def __init__(self):
-        self.exercises = [
-            {
-                "name": "pull-ups",
-                "description": "There is no description"
-            },
-            {
-                "name": "push-ups",
-                "description": "baldezh"
-            },
-            {
-                "name": "handstand",
-                "description": "Eee rock"
-            },
-        ]
-        for exercise in self.exercises:
-            exercise["exercise_id"] = self.exercises.index(exercise)
-            exercise["can_delete"] = 0
+    def get_all(self, user_id):
+        return db.session.execute(db.select(Exercise).filter(Exercise.myworkout_user_id == user_id)).scalars()
 
-    def get_all(self):
-        return self.exercises
+    def get_by_id(self, user_id, exercise_id):
+        return db.session.execute(db.select(Exercise).filter(Exercise.myworkout_user_id == user_id,
+                                                                     Exercise.id == exercise_id)).scalar()
 
-    def get_by_id(self, exercise_id):
-        if 0 <= exercise_id < len(self.exercises):
-            return self.exercises[exercise_id]
-        return None
+    def get_by_name(self, user_id, name):
+        return db.session.execute(db.select(Exercise).filter(Exercise.myworkout_user_id == user_id, Exercise.name == name)).scalar()
 
-    def get_by_name(self, name):
-        for exercise in self.exercises:
-            if exercise["name"] == name:
-                return exercise
+    def get_names(self, user_id):
+        return [e.name for e in db.session.execute(db.select(Exercise).filter(Exercise.myworkout_user_id == user_id)).scalars()]
 
-    def create(self, exercise_dto):
-        self.exercises.append(exercise_dto)
-        self.exercises[-1]["exercise_id"] = len(self.exercises) - 1
-        self.exercises[-1]["can_delete"] = 1
-        return self.exercises[-1]
-
-    def update(self, exercise):
-        self.exercises[exercise["exercise_id"]] = exercise
-        return self.exercises[exercise["exercise_id"]]
-
-    def delete(self, exercise_id):
-        exercise = self.exercises.pop(exercise_id)
+    def create(self, exercise):
+        db.session.add(exercise)
+        db.session.commit()
         return exercise
 
+    def update(self, exercise):
+        user_id = exercise.myworkout_user_id
+        exercise_id = exercise.id
+        exercise_to_update = self.get_by_id(user_id, exercise_id)
 
-if __name__ == "__main__":
-    ecrud = ExerciseCRUD()
-    print(ecrud.get_all())
-    print(ecrud.get_by_id(1))
-    print(ecrud.get_by_id(10))
-    print(ecrud.delete(2))
-    print(ecrud.create({"name": "plansh", "description": None}))
-    print(ecrud.update({"exercise_id": 2, "name": "plansh", "description": "eee"}))
-    print(ecrud.get_all())
+        exercise_to_update.name = exercise.name
+        exercise_to_update.description = exercise.description
+        db.session.commit()
+        return exercise_to_update
+
+    def delete(self, user_id, exercise_id):
+        exercise_to_delete = self.get_by_id(user_id, exercise_id)
+        db.session.delete(exercise_to_delete)
+        db.session.commit()
+        return exercise_to_delete

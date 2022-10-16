@@ -1,54 +1,34 @@
+from app import db
+from app.models.base import Muscle
 from app.utils.base import Singleton
 
 
 class MuscleCRUD(metaclass=Singleton):
 
     def __init__(self):
-        self.muscles = [
-            {
-                "name": "biceps",
-                "description": "hahaha"
-            },
-            {
-                "name": "triceps",
-                "description": "heheheh"
-            },
-            {
-                "name": "press",
-                "description": "hihihi"
-            },
-        ]
-        for muscle in self.muscles:
-            muscle["muscle_id"] = self.muscles.index(muscle)
+        self.__setup()
 
     def get_all(self):
-        return self.muscles
+        return db.session.execute(db.select(Muscle)).scalars()
 
     def get_by_name(self, name):
-        for muscle in self.muscles:
-            if muscle["name"] == name:
-                return muscle
+        return db.session.execute(db.select(Muscle).filter(Muscle.name == name)).scalar()
 
     def get_by_id(self, muscle_id):
-        if 0 <= muscle_id < len(self.muscles):
-            return self.muscles[muscle_id]
-        return None
+        return db.session.execute(db.select(Muscle).filter(Muscle.id == muscle_id)).scalar()
     
     def get_by_ids(self, muscles_ids):
-        muscles = []
-        for muscle_id in muscles_ids:
-            muscles.append(self.get_by_id(muscle_id))
+        muscles = [self.get_by_id(muscle_id) for muscle_id in muscles_ids]
+
         return muscles
 
-    def create(self, muscle_id):
-        self.muscles.append(muscle_id)
-        self.muscles[-1]["muscle_id"] = len(self.muscles) - 1
-        return self.muscles[-1]
+    def get_names(self):
+        names = [muscle.name for muscle in self.get_all()]
+        return names
 
-    def update(self, muscle):
-        self.muscles[muscle["muscle_id"]] = muscle
-        return self.muscles[muscle["muscle_id"]]
-
-    def delete(self, muscle_id):
-        muscle = self.muscles.pop(muscle_id)
-        return muscle
+    def __setup(self):
+        if not self.get_all():
+            names = ["biceps", "triceps", "press"]
+            for name in names:
+                db.session.add(Muscle(name=name))
+                db.session.commit()

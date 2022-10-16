@@ -1,102 +1,23 @@
+from app import db
+from app.models.base import ExerciseMuscle
 from app.utils.base import Singleton
 
 
 class ExerciseMuscleCRUD(metaclass=Singleton):
 
-    def __init__(self):
-        self.exercise_muscle = [
-            {
-                "exercise_id": 0,
-                "muscle_id": 1
-            },
-            {
-                "exercise_id": 0,
-                "muscle_id": 2
-            },
-            {
-                "exercise_id": 1,
-                "muscle_id": 0
-            },
-            {
-                "exercise_id": 2,
-                "muscle_id": 2
-            },
-            {
-                "exercise_id": 2,
-                "muscle_id": 0
-            },
-            {
-                "exercise_id": 2,
-                "muscle_id": 1
-            }
-        ]
-
     def get_muscles_ids(self, exercise_id):
-        muscles_ids = []
-        for em in self.exercise_muscle:
-            if em["exercise_id"] == exercise_id:
-                muscles_ids.append(em["muscle_id"])
+        ems = db.session.execute(db.select(ExerciseMuscle).filter_by(exercise_id=exercise_id)).scalars()
+        muscles_ids = [em.muscle_id for em in ems]
         return muscles_ids
 
     def set_muscle(self, exercise_id, muscle_id):
-        mapping = {"exercise_id": exercise_id, "muscle_id": muscle_id}
-        self.exercise_muscle.append(mapping)
-        return mapping
+        em = ExerciseMuscle(exercise_id=exercise_id, muscle_id=muscle_id)
+        db.session.add(em)
+        db.session.commit()
+        return em
 
     def remove_muscle(self, exercise_id, muscle_id):
-        index = -1
-        for em in self.exercise_muscle:
-            if em["exercise_id"] == exercise_id and em["muscle_id"] == muscle_id:
-                index = self.exercise_muscle.index(em)
-                break
-        if index != -1:
-            return self.exercise_muscle.pop(index)
-        return None
-
-    def __delete_exercise(self, exercise_id):
-        index = -1
-        for em in self.exercise_muscle:
-            if em["exercise_id"] == exercise_id:
-                index = self.exercise_muscle.index(em)
-                break
-        if index != -1:
-            return self.exercise_muscle.pop(index)
-        return None
-
-    def delete_exercise(self, exercise_id):
-        exercise_muscle = []
-        while True:
-            result = self.__delete_exercise(exercise_id)
-            if not result:
-                break
-            exercise_muscle.append(result)
-        return exercise_muscle
-
-    def __delete_muscle(self, muscle_id):
-        index = -1
-        for em in self.exercise_muscle:
-            if em["muscle_id"] == muscle_id:
-                index = self.exercise_muscle.index(em)
-                break
-        if index != -1:
-            return self.exercise_muscle.pop(index)
-        return None
-
-    def delete_muscle(self, muscle_id):
-        exercise_muscle = []
-        while True:
-            result = self.__delete_muscle(muscle_id)
-            if not result:
-                break
-            exercise_muscle.append(result)
-        return exercise_muscle
-
-
-if __name__ == "__main__":
-    emcrud = ExerciseMuscleCRUD()
-    print(emcrud.get_muscles_ids(1))
-    print(emcrud.set_muscle(1, 1))
-    print(emcrud.get_muscles_ids(1))
-    print(emcrud.remove_muscle(1, 1))
-    print(emcrud.delete_muscle(1))
-    print(emcrud.get_muscles_ids(2))
+        em_to_remove = db.session.execute(db.select(ExerciseMuscle).filter(ExerciseMuscle.exercise_id==exercise_id, ExerciseMuscle.muscle_id==muscle_id)).scalar()
+        db.session.delete(em_to_remove)
+        db.session.commit()
+        return em_to_remove

@@ -8,19 +8,19 @@ from app.crud.muscule import MuscleCRUD
 
 
 class MuscleForm(FlaskForm):
-    name = SelectField('Задействованные мышцы', choices=[muscle["name"] for muscle in MuscleCRUD().get_all()])
+    name = SelectField('Задействованные мышцы')
     submit = SubmitField('Добавить')
 
 
 class ExerciseForm(FlaskForm):
-    exercise_id = IntegerField('id')
+    id = IntegerField('id')
     name = StringField('Название', validators=[DataRequired()])
     description = StringField('Описание', validators=[DataRequired()])
     submit = SubmitField('Сохранить')
 
 
 class TrainExerciseForm(FlaskForm):
-    name = SelectField('Упражнение', choices=[exercise["name"] for exercise in ExerciseCRUD().get_all()])
+    name = SelectField('Упражнение')
     sequence_number = IntegerField('Номер упражнения')
     reps = IntegerField('Повторения', validators=[DataRequired()])
     sets = IntegerField('Подходы', validators=[DataRequired()])
@@ -29,7 +29,7 @@ class TrainExerciseForm(FlaskForm):
 
 
 class TrainExerciseUpdateForm(FlaskForm):
-    name = SelectField('Упражнение', choices=[exercise["name"] for exercise in ExerciseCRUD().get_all()])
+    name = SelectField('Упражнение')
     sequence_number = IntegerField('Номер упражнения', validators=[DataRequired()])
     reps = IntegerField('Повторения', validators=[DataRequired()])
     sets = IntegerField('Подходы', validators=[DataRequired()])
@@ -38,7 +38,7 @@ class TrainExerciseUpdateForm(FlaskForm):
 
 
 class TrainForm(FlaskForm):
-    train_id = IntegerField('id')
+    id = IntegerField('id')
     name = StringField('Название', validators=[DataRequired()])
     description = StringField('Описание', validators=[DataRequired()])
     submit = SubmitField('Сохранить')
