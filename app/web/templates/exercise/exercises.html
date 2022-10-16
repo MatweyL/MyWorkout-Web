@@ -5,10 +5,13 @@
     <title>Title</title>
 </head>
 <body>
+    <a href="{{ url_for('exercise.create_exercise') }}">Добавить упражнение</a>
     {% if exercises %}
         {% for exercise in exercises %}
             <div>
-                {{ exercise.name }} : {{ exercise.description }}
+                <div>{{ exercise.name }}</div>
+                <div><a href="{{ url_for('exercise.get_exercise', exercise_id=exercise.exercise_id) }}">Подробнее</a></div>
+                <div><a href="{{ url_for('exercise.add_muscle', exercise_id=exercise.exercise_id) }}">Редактировать мышцы</a></div>
                 <form action="{{ url_for('exercise.update_exercise', exercise_id=exercise.exercise_id) }}" method="GET">
                     <button type="submit">Редактировать</button>
                 </form>

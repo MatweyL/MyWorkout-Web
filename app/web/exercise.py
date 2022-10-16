@@ -1,5 +1,3 @@
-import logging
-
 from flask import Blueprint, render_template, request, redirect, url_for
 
 from app.crud.exercise import ExerciseCRUD
@@ -57,7 +55,7 @@ def update_exercise(exercise_id):
 def delete_exercise(exercise_id):
     e_crud = ExerciseCRUD()
     e_crud.delete(exercise_id)
-    return redirect("/exercise")
+    return redirect(url_for(".get_exercises"))
 
 
 @exercise.route('/muscle/<int:exercise_id>', methods=["GET", "POST"])
@@ -81,4 +79,4 @@ def add_muscle(exercise_id):
 def remove_muscle(exercise_id, muscle_id):
     e_m_crud = ExerciseMuscleCRUD()
     e_m_crud.remove_muscle(exercise_id, muscle_id)
-    return redirect(f"/exercises/muscle/{exercise_id}")
+    return redirect(url_for(".add_muscle", exercise_id=exercise_id))

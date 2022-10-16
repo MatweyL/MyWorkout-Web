@@ -20,8 +20,10 @@ class TrainCRUD:
     def get_all(self, user_id):
         return [train for train in self.trains if train["user_id"] == user_id]
 
-    def get_by_id(self, train_id):
-        return self.trains[train_id]
+    def get_by_id(self, user_id, train_id):
+        for train in self.trains:
+            if train["user_id"] == user_id and train["train_id"] == train_id:
+                return train
 
     def create(self, train_dto):
         self.trains.append(train_dto)
@@ -32,6 +34,7 @@ class TrainCRUD:
         self.trains[train["train_id"]] = train
         return self.trains[train["train_id"]]
 
-    def delete(self, train_id):
-        train = self.trains.pop(train_id)
-        return train
+    def delete(self, user_id, train_id):
+        train_to_delete = self.get_by_id(user_id, train_id)
+        self.trains.remove(train_to_delete)
+        return train_to_delete

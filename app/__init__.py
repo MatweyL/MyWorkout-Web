@@ -14,9 +14,11 @@ def create_app():
     #
     from app.web.common import common
     from app.web.exercise import exercise
+    from app.web.train import train
     # from app.modules.user.routes import user
     app.register_blueprint(common, url_prefix="/")
     app.register_blueprint(exercise, url_prefix="/exercises")
+    app.register_blueprint(train, url_prefix="/trains")
     # app.register_blueprint(user, url_prefix="/user")
 
     return app

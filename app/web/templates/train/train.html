@@ -5,6 +5,17 @@
     <title>Title</title>
 </head>
 <body>
-
+    {% if train %}
+        <div>{{train.name}}</div>
+        <div>{{train.description}}</div>
+        <div>Упражнения</div>
+        {% for train_exercise in train.train_exercises %}
+            <div>{{train_exercise.name}}</div>
+            <div>{{train_exercise.sets}}</div>
+            <div>{{train_exercise.reps}}</div>
+            <div>{{train_exercise.timeout}}</div>
+            <div><a href="{{ url_for('exercise.get_exercise', exercise_id=train_exercise.exercise_id) }}">Подробнее</a></div>
+        {% endfor %}
+    {% endif %}
 </body>
 </html>

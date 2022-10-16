@@ -5,6 +5,15 @@
     <title>Title</title>
 </head>
 <body>
+    {% if trains %}
+        {% for train in trains %}
+            <div>
+                <div>{{ train.name }}</div>
+                <div>{{ train.description }}</div>
+                <div><a href="{{ url_for('train.get_train', train_id=train.train_id) }}">Подробнее</a></div>
+            </div>
+        {% endfor %}
+    {% endif %}
 
 </body>
 </html>
