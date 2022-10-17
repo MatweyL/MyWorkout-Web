@@ -47,7 +47,7 @@ def register():
     if request.method == 'POST' and form.validate_on_submit():
 
         password_hash = generate_password_hash(form.password.data)
-        new_user = MyworkoutUser(nickname= form.nickname.data, email=form.email.data, password_hash=password_hash)
+        new_user = MyworkoutUser(nickname=form.nickname.data, email=form.email.data, password_hash=password_hash)
         db.session.add(new_user)
         db.session.commit()
 

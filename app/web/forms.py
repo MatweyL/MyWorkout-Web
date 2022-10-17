@@ -1,6 +1,6 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, BooleanField, SubmitField, IntegerField, FieldList, FormField, \
-    SelectField
+    SelectField, EmailField
 from wtforms.validators import DataRequired
 
 from app.crud.exercise import ExerciseCRUD
@@ -45,13 +45,13 @@ class TrainForm(FlaskForm):
 
 
 class LoginForm(FlaskForm):
-    email = StringField("Почта", validators=[DataRequired()], render_kw={"class": "form-control"})
+    email = EmailField("Почта", validators=[DataRequired()], render_kw={"class": "form-control"})
     password = PasswordField("Пароль", validators=[DataRequired()], render_kw={"class": "form-control"})
     submit = SubmitField('Войти', render_kw={"class": "btn btn-primary"})
 
 
 class RegisterForm(FlaskForm):
     nickname = StringField("Имя", validators=[DataRequired()], render_kw={"class": "form-control"})
-    email = StringField("Почта", validators=[DataRequired()], render_kw={"class": "form-control"})
+    email = EmailField("Почта", validators=[DataRequired()], render_kw={"class": "form-control"})
     password = PasswordField("Пароль", validators=[DataRequired()], render_kw={"class": "form-control"})
     submit = SubmitField('Зарегистрироваться', render_kw={"class": "btn btn-primary"})

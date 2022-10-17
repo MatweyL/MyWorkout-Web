@@ -27,6 +27,10 @@ def get_db_connection_params():
             "passwd": os.environ.get("DB_PASSWORD")}
 
 
+def get_path_to_muscles():
+    return os.path.join(get_project_root(), "init_data/muscles.txt")
+
+
 class Singleton(type):
     _instances = {}
 

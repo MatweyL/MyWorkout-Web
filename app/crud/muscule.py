@@ -1,6 +1,6 @@
 from app import db
 from app.models.base import Muscle
-from app.utils.base import Singleton
+from app.utils.base import Singleton, get_path_to_muscles
 
 
 class MuscleCRUD(metaclass=Singleton):
@@ -27,8 +27,11 @@ class MuscleCRUD(metaclass=Singleton):
         return names
 
     def __setup(self):
-        if not self.get_all():
-            names = ["biceps", "triceps", "press"]
+        if not db.session.execute(db.select(Muscle)).all():
+            with open(get_path_to_muscles(), encoding='utf-8') as file:
+                names = file.read().split('\n')
+            if '' in names:
+                names.remove('')
             for name in names:
                 db.session.add(Muscle(name=name))
                 db.session.commit()
