@@ -1,13 +1,14 @@
 from flask import Flask
 
 from app.db.base import db
+from app.utils.base import get_db_url
 from app.web.auth import login_manager
 
 
 def create_app():
     app = Flask(__name__)
     app.config['SECRET_KEY'] = 'sTTyyVBBBH23837788SafvSF(*hfwh'
-    app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///myworkout.db'
+    app.config['SQLALCHEMY_DATABASE_URI'] = get_db_url()
     # app.config.from_object(os.environ['APP_SETTINGS'])
     # app.config.from_object('config')
     db.init_app(app)

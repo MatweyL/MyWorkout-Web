@@ -27,6 +27,14 @@ def get_db_connection_params():
             "passwd": os.environ.get("DB_PASSWORD")}
 
 
+def get_db_url():
+    return f"mysql://{os.environ.get('DB_USER')}:" \
+           f"{os.environ.get('DB_PASSWORD')}@" \
+           f"{os.environ.get('DB_HOST')}:" \
+           f"{os.environ.get('DB_PORT')}/" \
+           f"{os.environ.get('DB_NAME')}"
+
+
 def get_path_to_muscles():
     return os.path.join(get_project_root(), "init_data/muscles.txt")
 
