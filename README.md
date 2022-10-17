@@ -7,8 +7,9 @@
 ```git clone https://github.com/MatweyL/MyWorkout-Web.git```  
 или  
 ```git clone git@github.com:MatweyL/MyWorkout-Web.git```
-2. Создать в корне проекта файл *.env*, в котором, согласно .env.template, ввести данные БД
-3. Запустить проект с помощью команды ```python main.py```
+2. Создать MySQL БД с нужным именем
+3. Создать в корне проекта файл *.env*, в котором, согласно .env.template, ввести данные БД
+4. Запустить проект с помощью команды ```python main.py```
 
 ## Примеры интерфейса
 
