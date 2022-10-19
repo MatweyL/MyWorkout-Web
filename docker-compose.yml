@@ -1,0 +1,13 @@
+version: '3'
+
+services:
+  mysql:
+    container_name: myworkout_db
+    image: mysql:latest
+#    command: --init-file /init_sql/init.sql
+    environment:
+      - MYSQL_ROOT_PASSWORD=password
+    volumes:
+      - /data:/var/lib/mysql
+    ports:
+      - "3307:3306"

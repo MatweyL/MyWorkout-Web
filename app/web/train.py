@@ -110,7 +110,7 @@ def add_train_exercise(train_id):
 def remove_train_exercise(train_id, sequence_number):
     user_id = current_user.id
     t_e_crud = TrainExerciseCRUD()
-    t_e_crud.delete(user_id, train_id, sequence_number)
+    t_e_crud.delete(sequence_number, user_id, train_id)
     return redirect(url_for(".add_train_exercise", train_id=train_id))
 
 
