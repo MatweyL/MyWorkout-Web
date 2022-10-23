@@ -1,4 +1,4 @@
-CREATE DATABASE myworkout;
+CREATE DATABASE IF NOT EXISTS myworkout;
 
 USE myworkout;
 
